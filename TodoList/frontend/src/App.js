@@ -2,18 +2,21 @@ import { useEffect, useRef } from 'react';
 import './App.css';
 import Todos from './Components/Todos';
 import { useDispatch } from 'react-redux';
-import { getTodo,createTodo } from './Stores/TodoSlice';
+import { addtodo, getTodo } from './Stores/TodoSlice';
+
 
 
 function App() {
 
 
-const Item=useRef();
+    const Item=useRef();
    const dispatch=useDispatch()
     
     useEffect(()=>{
-       dispatch(getTodo());
-    },[])
+      dispatch(getTodo())
+    })
+
+    
     
     
 
@@ -25,7 +28,8 @@ const Item=useRef();
           item:item,
           iscomplete:false
         }
-        dispatch(createTodo(obj))
+       dispatch(addtodo(obj))
+        Item.current.value = '';
      }
   return (
     <>

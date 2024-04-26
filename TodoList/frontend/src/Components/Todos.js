@@ -1,25 +1,26 @@
-import React from 'react'
+import {React,useEffect} from 'react'
 import Todo from './Todo'
 import { useSelector } from 'react-redux'
 
+import { useDispatch } from 'react-redux';
 const Todos = () => {
 
-    let obj=useSelector(state=>state.todo)
+  const dispatch=useDispatch()
+ 
+  const obj= useSelector(state=>state.todo)
    
-    if(obj.isLoading)
-      return <h1>Loading.....</h1>
-   
-    
-
+     
   return (
     <div className='flex flex-col  gap-4 w-4/5 mx-auto mt-4'>
      
-    {
-       obj.data && obj.data.map((item,key)=>(
-          <Todo key={item.userid} item={item}/>
-       ))
-    }
-     
+    
+     {
+       obj.data && obj.data.map((item,key)=>{
+         return <Todo item={item} key={item.userid}/> 
+       }
+
+       )
+     }
 
     </div>
   )
