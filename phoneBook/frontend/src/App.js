@@ -2,9 +2,12 @@
 import { useRef } from 'react';
 import './App.css';
 import Navbar from './Components/Navbar';
-import { BrowserRouter } from 'react-router-dom';
-
-
+import Home from './Components/Home.js'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './layout/Layout';
+import Favourite from './Components/Favourite.js';
+import Create from './Components/Create.js';
+import View from './Components/View.js'
 
 function App() {
 
@@ -13,10 +16,19 @@ function App() {
    
       
 
-      <div className="pattern-wavy pattern-blue-500 pattern-bg-white 
-  pattern-size-10 pattern-opacity-60  min-h-screen">
+      <div className="  min-h-screen">
   
-   <Navbar/>
+     <BrowserRouter>
+        <Layout/>
+        <Routes >
+          <Route path='/' element={<Home/>} />
+          <Route path='/create' element={<Create/>} />
+          <Route path='/favourite' element={<Favourite/>} />
+          <Route path='/view' element={<View/>} />
+          <Route path='/seach/:id' />
+        </Routes>
+       
+     </BrowserRouter>
     
       
     </div>
