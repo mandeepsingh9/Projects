@@ -27,10 +27,7 @@ const contactSchema=mongoose.Schema({
           message: '{VALUE} is not supported'
         }
     },
-    favorite: {
-        type: Boolean,
-        default: false 
-    }
+    
 });
 
 const Contact=mongoose.model("contact",contactSchema)
