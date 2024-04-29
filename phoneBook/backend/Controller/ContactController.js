@@ -90,7 +90,31 @@ const deletePhonebook=async(req,res)=>{
    }
  }
  
+const getbyidphonebook=async(req,res)=>{
+
+  try {
+   const id= req.params.id
+   const getdata= await Contact.find({_id:id})
+   console.log(getdata);
+   res.json({
+      "status":"201",
+      "message":"sucess ",
+      "Data":getdata   });   
+
+  
+
+  } catch (error) {
+    res.json(
+        {
+           "status":"404",
+           "message":"Something went wrong",
+           "error":error
+        }
+       )
+  }
+  
+
+}
 
 
-
-module.exports={getAllphonebook,createPhonebook,updatePhonebook,deletePhonebook}
+module.exports={getAllphonebook,createPhonebook,updatePhonebook,deletePhonebook,getbyidphonebook}

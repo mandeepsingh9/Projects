@@ -1,6 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const View = () => {
+   
+    const obj=useSelector(state=>state.contact.view)
+    console.log(obj);
   return (
 <div className="flex mt-5 m-auto  gap-5 md:w-6/12 justify-center h-96  sm:w-5/6 flex-col md:flex-row">
 
@@ -9,7 +13,7 @@ const View = () => {
          <label>🙎🏻‍♂️</label> 
         </div>
         <div className="text-2xl text-sky-900 font-bold">
-          <p>@Mandeep</p>
+          <p>@{obj.name}</p>
         </div>
        
           <button className=' p-1 text-white px-6 border-2 rounded-lg hover:bg-red-500 bg-green-600'>Update</button>
@@ -25,24 +29,24 @@ const View = () => {
              <tbody>
              <tr>
               <td className=' text-sky-800 font-bold text-xl p-3'>Name:</td>
-              <td>Mandeep Kumar</td>
+              <td>{obj.name}</td>
              </tr>
              <tr>
               <td className=' text-sky-800 font-bold text-xl p-3'>Email:</td>
-              <td>minturaj@gmail.com</td>
+              <td>{obj.email}</td>
              </tr>
              <tr>
               <td className=' text-sky-800 font-bold text-xl p-3'>Mobile:</td>
-              <td>6299892429</td>
+              <td>{obj.mobile}</td>
 
              </tr>
              <tr>
               <td className=' text-sky-800 font-bold text-xl p-3'>Alt mob:</td>
-              <td>7833123456</td>
+              <td>{obj.altno}</td>
              </tr>
                 <tr>
               <td className=' text-sky-800 font-bold text-xl p-3'>Group:</td>
-              <td>Family</td>
+              <td>{obj.group}</td>
              </tr>
              </tbody>
           </table>   

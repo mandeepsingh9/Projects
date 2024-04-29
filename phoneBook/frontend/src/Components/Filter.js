@@ -2,7 +2,7 @@ import React from 'react'
 
 const Filter = () => {
   return (
-    <div className='flex flex-wrap gap-6 m-4 font-bold font-xl bg-slate-900 text-slate-200 justify-evenly p-4 rounded-3xl '>
+    <div className='flex flex-wrap gap-6 m-4 font-bold font-xl bg-slate-900 text-slate-200 justify-evenly p-4 rounded-3xl border-4'>
         <div className=' flex-grow '>
           <input type='radio' name='group' value="All" className=' mx-4'/>
            <label>All</label>

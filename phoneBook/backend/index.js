@@ -3,11 +3,12 @@ require("dotenv").config();
 const connect=require('./db.js')
 const Route=require("./Router/ContactRoute.js");
 const favoriteRoute = require("./Router/FavouriteRoute.js");
-
+const cors=require("cors");
 const app=express();
 connect();
 
 app.use(express.json())
+app.use(cors());
 app.use('/api',Route)
 app.use('/',favoriteRoute)
 

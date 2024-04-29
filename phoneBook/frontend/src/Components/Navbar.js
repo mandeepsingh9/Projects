@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="flex items-center justify-between  p-4 bg-slate-900 text-white sticky top-0">
-     <div className="flex items-center flex-shrink-0 text-black mr-6 lg:mr-10">
-       <label className='text-white text-2xl font-extrabold'>PhoneBook</label>
-     </div>
+
+     <NavLink to={'/'} className="flex items-center flex-shrink-0 text-black mr-6 lg:mr-10">
+       <label className='text-white text-2xl font-extrabold cursor-pointer shadow-transparent'>PhoneBook</label>
+     </NavLink>
      <div className="block lg:hidden">
        <button
          onClick={() => setIsOpen(!isOpen)}
@@ -31,12 +33,21 @@ const Navbar = () => {
      <div
        className={`w-full block flex-grow lg:flex lg:items-center lg:w-auto ${isOpen ? "block" : "hidden"}`}>
        <div className=" text-blue-700 text-xl font-bold  lg:flex-grow">
-         <a href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 p-1 px-2 rounded-lg hover:text-red-600 hover:bg-slate-600">
+       <NavLink to={"/"}  className={({ isActive }) => isActive ? 'text-green-600 ' : ''}>
+         <div className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 p-1 px-2 rounded-lg hover:text-red-600 hover:bg-slate-600 '>        
+           Home
+          </div>
+         </NavLink>
+         <NavLink to={"/create"}  className={({ isActive }) => isActive ? 'text-green-600 ' : ''}>
+         <div className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 p-1 px-2 rounded-lg hover:text-red-600 hover:bg-slate-600 '>        
            Create
-         </a>
-         <a href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 p-1 rounded-lg  px-2 hover:text-red-600 hover:bg-slate-600">
-           Favorite
-         </a>
+          </div>
+         </NavLink>
+         <NavLink to={"/favourite"}  className={({ isActive }) => isActive ? 'text-green-600 ' : ''}>
+         <div className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 p-1 px-2 rounded-lg hover:text-red-600 hover:bg-slate-600 '>        
+           Favourite
+          </div>
+         </NavLink>
        
        </div>
        <div>
