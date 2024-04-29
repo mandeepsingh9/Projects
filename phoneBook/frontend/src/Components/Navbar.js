@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { searchAction } from '../Store/ContactSlice';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch=useDispatch()
+
+  function handleSearch(e)
+  {
+    dispatch(searchAction(e.target.value))
+  }
   return (
     <nav className="flex items-center justify-between  p-4 bg-slate-900 text-white sticky top-0">
 
@@ -51,8 +60,8 @@ const Navbar = () => {
        
        </div>
        <div>
-           <input type='text' placeholder='serach name' className='h-8 w-80 px-6 border-2 rounded-xl border-cyan-400 my-auto ' />
-           <button className=' ml-4 bg-slate-600 p-1 px-2  rounded-md'>Search</button>
+           <input type='text' placeholder='serach name' className='h-8 w-80 px-6 border-2 rounded-xl text-black border-cyan-400 my-auto 'onChange={handleSearch} />
+           <button className=' ml-4 bg-slate-600 p-1 px-2  rounded-md' >Search</button>
        </div>
      </div>
    </nav>

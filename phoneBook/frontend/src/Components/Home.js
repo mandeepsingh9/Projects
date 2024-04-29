@@ -9,9 +9,10 @@ const Home = () => {
   return (
    <div>
     <Filter/>
-    <div className=' flex items-center gap-2 flex-wrap justify-evenly'>
+    <div className=' container flex flex-wrap  items-center    w-3/4 mx-auto '>
         {
-          obj.data && obj.data.map((item,key)=>(
+         
+         obj.filter &&  obj.filter.map((item,key)=>(
             <Card key={item._id} item={item}/>
           ))
         }

@@ -43,7 +43,35 @@ const PhonebookSlice=createSlice(
             "data":[],
             "isLoading":false,
             "isError":false,
-            "view":{}
+            "view":{},
+            "filter":[]
+    },
+    reducers:{
+       filterAction:(state,action)=>{
+             if(action.payload==="All")
+             {
+                state.filter=[...state.data]
+             }
+             else
+             {
+                const newdata=state.data.filter((item)=>{
+                    if(item.group===action.payload)
+                      return item;
+                })
+               
+                state.filter=newdata;
+             }
+       },
+       searchAction:(state,action)=>{
+         
+        const newdata=state.data.filter((item)=>{
+            if(item.name.includes(action.payload))
+            return item;
+        })
+
+        state.filter=newdata
+       }
+    
     },
     extraReducers: (builder)=>{
            builder.addCase(createPhoneBook.fulfilled,(state,action)=>{
@@ -52,6 +80,7 @@ const PhonebookSlice=createSlice(
 
            builder.addCase(getAllPhoneBook.fulfilled,(state,action)=>{
              state.data=[...action.payload.Data]
+             state.filter=[...action.payload.Data]
            })
            builder.addCase(getbyidPhoneBook.fulfilled,(state,action)=>{
             state.view={...action.payload.Data[0]}
@@ -59,5 +88,6 @@ const PhonebookSlice=createSlice(
     }
     }
 );
+export const {filterAction,searchAction}=PhonebookSlice.actions;
 
 export default PhonebookSlice;

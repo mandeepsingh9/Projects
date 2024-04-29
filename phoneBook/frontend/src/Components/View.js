@@ -5,6 +5,9 @@ const View = () => {
    
     const obj=useSelector(state=>state.contact.view)
     console.log(obj);
+
+
+
   return (
 <div className="flex mt-5 m-auto  gap-5 md:w-6/12 justify-center h-96  sm:w-5/6 flex-col md:flex-row">
 
