@@ -9,7 +9,7 @@ const Home = () => {
   return (
    <div>
     <Filter/>
-    <div className=' container flex flex-wrap  items-center    w-3/4 mx-auto '>
+    <div className=' container flex flex-wrap  items-center   xl:w-3/4 lg:w-11/12 mx-auto '>
         {
          
          obj.filter &&  obj.filter.map((item,key)=>(

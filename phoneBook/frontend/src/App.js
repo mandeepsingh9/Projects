@@ -10,13 +10,14 @@ import Create from './Components/Create.js';
 import View from './Components/View.js'
 import { useDispatch } from 'react-redux';
 import { getAllPhoneBook } from './Store/ContactSlice.js';
-
+import { getfavourite } from './Store/FavouriteSlice.js';
 
 function App() {
   
        const dispatch=useDispatch()
         useEffect(()=>{
              dispatch(getAllPhoneBook())
+             dispatch(getfavourite());
         },[])
   
   return (

@@ -75,6 +75,8 @@ const PhonebookSlice=createSlice(
     },
     extraReducers: (builder)=>{
            builder.addCase(createPhoneBook.fulfilled,(state,action)=>{
+            console.log(action);
+              if(action.payload.Data)
                  state.data=[...state.data,action.payload.Data]
            })
 
