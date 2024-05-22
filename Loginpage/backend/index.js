@@ -2,7 +2,8 @@ const express=require('express')
 require("dotenv").config();
 const connect =require("./db.js");
 const userRoute=require('./Routes/UserRoute.js')
-const cookie=require("cookie-parser")
+const cookieParser=require("cookie-parser")
+const cors=require("cors")
 const app=express();
 
 connect();
@@ -10,8 +11,10 @@ connect();
 
 
 //middleware
+app.use(cors())
+app.use(cookieParser())
 app.use(express.json());
-app.use(cookie())
+
 app.use("/api",userRoute)
 
 

@@ -3,13 +3,16 @@ const ErrorHandle=require("../Utils/ErrorHandle.js")
 require("dotenv").config()
 const Error=require("../Middleware/Error.js")
 const bcrypt=require("bcrypt")
+const cookieParser=require("cookie-parser")
 const jwt=require("jsonwebtoken");
-const cookie=require("cookie-parser")
+
+
 const LoginController=async(req,res)=>
 {
    try {
         let obj=req.body;
          console.log(obj);
+         
         let response=await User.findOne({username:obj.username})
         if(!response)
          {
@@ -27,7 +30,9 @@ const LoginController=async(req,res)=>
         //jwt token generate
         
          let token=jwt.sign({"UserId":response._id}, process.env.jwt_password , {expiresIn: '1h'})
-         res.cookie("token",token,{httpOnly:true,maxAge:60*60*24*10});
+         console.log(token);
+
+         res.cookieParser('token', token,{httpOnly:true,maxAge:60*60*24*10})
 
       
         //................

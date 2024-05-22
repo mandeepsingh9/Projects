@@ -1,18 +1,50 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
-
-
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 const Login = () => {
+
+    const Name=useRef();
+    const pass=useRef();
+
+
+  async function handleLogin(e)
+  {
+    e.preventDefault();
+     const username=Name.current.value;
+     const password=pass.current.value;
+     
+     let data={
+      username,password
+     }
+     try {
+             let res= await axios.post("http://localhost:8080/api/login",data) 
+             
+             if(res.data.status==="failed")
+              throw new Error(JSON.stringify(res.data))
+             toast.success(res.data.message)
+             
+             
+     } catch (err) {
+      console.log(err);
+      const responseData = JSON.parse(err.message);
+      toast.error(responseData.message)
+      
+     }
+     
+  }
+
   return (
     <form  className='container flex flex-col border-2 md:w-2/3 bg-slate-800 mt-6 m-auto p-6 rounded-xl gap-3 h-auto font-bold text-xl lg:w-2/5' >
+         <Toaster position="top-center" reverseOrder={false} />
         <div className=' text-center font-extrabold text-2xl text-green-800 underline '>LogIn</div>
         <div className='flex flex-col gap-2 ' >
             <label>UserName</label>
-            <input type='text' placeholder=' Enter UserName'  className='p-1 text-green-700 text-lg px-3 rounded-lg   border-2 border-solid border-cyan-900'/>
+            <input type='text' placeholder=' Enter UserName'  className='p-1 text-green-700 text-lg px-3 rounded-lg   border-2 border-solid border-cyan-900' ref={Name}/>
         </div>
         <div className='flex flex-col gap-2'>
             <label>Password</label>
-            <input type='password' placeholder=' Enter Password' className='p-1 text-green-700 text-lg px-3 rounded-lg   border-2 border-solid border-cyan-900'/>
+            <input type='password' placeholder=' Enter Password' className='p-1 text-green-700 text-lg px-3 rounded-lg   border-2 border-solid border-cyan-900' ref={pass}/>
         </div>
         <Link to={"/register"}>
         <p className=' font-normal text-sm text-orange-400 hover:text-red-800 cursor-pointer'>Click Here to register</p>
@@ -23,7 +55,7 @@ const Login = () => {
          
         </div>
        
-        <div className='flex flex-col gap-2 items-end'>
+        <div className='flex flex-col gap-2 items-end' onClick={handleLogin}>
             <button className=' border-2 bg-sky-800 p-1 rounded-lg px-3 '>Login</button>
         </div>
     </form>
