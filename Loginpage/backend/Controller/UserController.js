@@ -3,16 +3,16 @@ const ErrorHandle=require("../Utils/ErrorHandle.js")
 require("dotenv").config()
 const Error=require("../Middleware/Error.js")
 const bcrypt=require("bcrypt")
-const cookieParser=require("cookie-parser")
+
 const jwt=require("jsonwebtoken");
 
 
 const LoginController=async(req,res)=>
 {
+   
    try {
         let obj=req.body;
-         console.log(obj);
-         
+        
         let response=await User.findOne({username:obj.username})
         if(!response)
          {
@@ -29,23 +29,16 @@ const LoginController=async(req,res)=>
 
         //jwt token generate
         
-         let token=jwt.sign({"UserId":response._id}, process.env.jwt_password , {expiresIn: '1h'})
-         console.log(token);
+         let Token=jwt.sign({"UserId":response._id}, process.env.jwt_password , {expiresIn: '1h'})
+         
 
-         res.cookieParser('token', token,{httpOnly:true,maxAge:60*60*24*10})
-
-      
-        //................
-
-
-
-       res.json({
+         res.cookie('token', Token, {httpOnly: true, secure: true, maxAge: 60 * 60 * 24 * 10 } ).status(201).json({
          "status":"sucess",
          "message":"Login Sucessfull",
          "Data":response
        });
    } catch (error) {
-       res.json({"status":error.status,
+       res.status(404).json({"status":error.status,
          "message":error.message
        })
    }    
@@ -67,7 +60,7 @@ const RegisterController=async(req,res)=>
          "password":encrypt
       }
     let newdata= await User.create(obj);
-    res.json({
+    res.status(201).json({
         "status":"sucess",
         "message":"Register Sucessfully",
         "Data":newdata
@@ -78,4 +71,9 @@ const RegisterController=async(req,res)=>
    
 }
 
-module.exports={LoginController,RegisterController}
+const logutController=async(req,res)=>{
+   res.cookie("name","mandeep");
+   res.json({"status":"sucess"})
+}
+
+module.exports={LoginController,RegisterController,logutController}

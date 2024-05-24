@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 const Register = () => {
 
@@ -7,6 +8,8 @@ const Register = () => {
      const Name=useRef();
      const pass=useRef();
      const ConfPass=useRef();
+
+     let Navigate=useNavigate()
      async function SubmitHandle(e)
      {
          e.preventDefault();
@@ -27,17 +30,19 @@ const Register = () => {
             } 
 
             try {
-                let res=await axios.post("http://localhost:8080/api/register",data);
+                let res=await axios.post("http://localhost:8080/api/register",data,{ withCredentials: true });
             
+                  toast.success(res.data.message)
 
-                if(res.data.status==="failed")
-                     throw new Error(JSON.stringify(res.data));
-                toast.success(res.data.message)
+                  Email.current.value=""
+                  Name.current.value=""
+                  pass.current.value=""
+                  ConfPass.current.value=""
+                  
+                 Navigate("/login")
             } catch (err) {
                 console.log(err);
-                const responseData = JSON.parse(err.message);
-                toast.error(responseData.message)
-                
+                toast.error(err.response.data.message)
                 
             }
         

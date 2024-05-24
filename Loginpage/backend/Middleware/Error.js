@@ -20,7 +20,7 @@ const Error=(err,req,res)=>{
     }
     
   
-    res.json({
+    res.status(404).json({
         "status": error.status || "failed",
         "message":error.message || "Internal server Error"
     })

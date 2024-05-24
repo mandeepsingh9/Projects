@@ -1,13 +1,16 @@
-import React, { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import store from '../stores/stores';
 const Login = () => {
 
     const Name=useRef();
     const pass=useRef();
-
-
+        const abc=   useContext(store)
+        console.log(abc);
+    let Navigate=useNavigate()
+   
   async function handleLogin(e)
   {
     e.preventDefault();
@@ -18,17 +21,16 @@ const Login = () => {
       username,password
      }
      try {
-             let res= await axios.post("http://localhost:8080/api/login",data) 
+             let res= await axios.post("http://localhost:8080/api/login",data,{ withCredentials: true }) 
              
-             if(res.data.status==="failed")
-              throw new Error(JSON.stringify(res.data))
+             
+              abc.userDataHandle(res.data.Data);
              toast.success(res.data.message)
-             
+            Navigate('/')
              
      } catch (err) {
-      console.log(err);
-      const responseData = JSON.parse(err.message);
-      toast.error(responseData.message)
+     
+      toast.error(err.response.data.message)
       
      }
      
