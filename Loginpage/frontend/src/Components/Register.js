@@ -3,7 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 import {RegisterController} from '../stores/AuthSlice'
-import axios from 'axios';
+import Error from './Error';
 
 const Register = () => {
 
@@ -37,9 +37,12 @@ const Register = () => {
 
            
                
-                Dispatch(RegisterController(data))
+               const abc=await Dispatch(RegisterController(data))
             
-               
+               if(abc.payload.status==="sucess")
+                {
+                    Navigate("/login")
+                }
 
                   Email.current.value=""
                   Name.current.value=""
@@ -49,13 +52,12 @@ const Register = () => {
    
      }
 
-     useEffect(()=>{
-        if(isError)
-         toast.error(message)
-      },[isError])
+     
     
 
   return (
+    <>
+    {isloading &&  <Error/>   }
     <form  className='container flex flex-col border-2 md:w-2/3 bg-slate-800 mt-6 m-auto p-6 rounded-xl gap-3 h-auto font-bold text-normal lg:w-2/5' >
         <Toaster position="top-center" reverseOrder={false} />
     <div className=' text-center font-extrabold text-2xl text-green-800 underline '>Register</div>
@@ -81,6 +83,8 @@ const Register = () => {
         <button className=' border-2 bg-sky-800 p-1 rounded-lg px-3 ' onClick={SubmitHandle}>Register</button>
     </div>
 </form>
+
+</>
   )
 }
 

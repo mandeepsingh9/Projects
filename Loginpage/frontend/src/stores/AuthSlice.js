@@ -21,24 +21,24 @@ export const RegisterController=createAsyncThunk("users/REgisterController",asyn
 
     try {
         const res=await axios.post("http://localhost:8080/api/register",obj,{ withCredentials: true }) 
-  
+        toast.success(res.data.message)
         return res.data;
     } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message);
         return rejectWithValue(error.response.data);
     }
 })
 
 
-export const LogoutController=createAsyncThunk("users/REgisterController",async(obj,{ rejectWithValue })=>{
+export const LogoutController=createAsyncThunk("users/LogoutController",async(obj,{ rejectWithValue })=>{
 
 
     try {
         const res=await axios.get("http://localhost:8080/api/logout",{ withCredentials: true }) 
-  
+        toast.success(res.data.message)
         return res.data;
     } catch (error) {
-        
+        toast.error(error.response.data.message);
         return rejectWithValue(error.response.data);
     }
 })
@@ -91,6 +91,15 @@ const AuthSlice=createSlice(
                     state.isError=true
                     state.message=(action.payload.message);
               })  
+
+
+              builder.addCase(LogoutController.fulfilled,(state,action)=>{
+                 
+                state.isloading=false
+                   state.isError=false
+                   state.Currentuser=null
+                  
+             }) 
 
 
              

@@ -72,9 +72,15 @@ const RegisterController=async(req,res)=>
 }
 
 const logutController=async(req,res)=>{
-   res.clearCookie('Token').status(200).json({
-       "status":"sucess",
-       "message":"Logout Sucessfully",});
+try {
+      
+      
+      res.clearCookie('Token').status(200).json({
+          "status":"sucess",
+          "message":"Logout Sucessfully",});
+} catch (error) {
+   Error(error,req,res)
+}
 };
 
 
