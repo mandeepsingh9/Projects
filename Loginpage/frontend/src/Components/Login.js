@@ -1,17 +1,22 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import store from '../stores/stores';
+
+import {useDispatch, useSelector} from 'react-redux'
+import { loginController } from '../stores/AuthSlice';
 const Login = () => {
 
     const Name=useRef();
     const pass=useRef();
-        const abc=   useContext(store)
-        console.log(abc);
+      
     let Navigate=useNavigate()
-   
-  async function handleLogin(e)
+      let Dispatch=useDispatch()
+ 
+      let {isError,isloading,message,Currentuser}= useSelector(state=>state.users)
+       
+
+   function handleLogin(e)
   {
     e.preventDefault();
      const username=Name.current.value;
@@ -20,21 +25,18 @@ const Login = () => {
      let data={
       username,password
      }
-     try {
-             let res= await axios.post("http://localhost:8080/api/login",data,{ withCredentials: true }) 
-             
-             
-              abc.userDataHandle(res.data.Data);
-             toast.success(res.data.message)
-            Navigate('/')
-             
-     } catch (err) {
-     
-      toast.error(err.response.data.message)
-      
-     }
-     
+    
+  
+             Dispatch(loginController(data))
+            
   }
+
+    useEffect(()=>{
+      if(isError)
+       toast.error(message)
+      if(Currentuser)
+        Navigate('/')
+    },[isError,Currentuser])
 
   return (
     <form  className='container flex flex-col border-2 md:w-2/3 bg-slate-800 mt-6 m-auto p-6 rounded-xl gap-3 h-auto font-bold text-xl lg:w-2/5' >

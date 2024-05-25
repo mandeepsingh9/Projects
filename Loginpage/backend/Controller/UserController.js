@@ -72,8 +72,10 @@ const RegisterController=async(req,res)=>
 }
 
 const logutController=async(req,res)=>{
-   res.cookie("name","mandeep");
-   res.json({"status":"sucess"})
-}
+   res.clearCookie('Token').status(200).json({
+       "status":"sucess",
+       "message":"Logout Sucessfully",});
+};
+
 
 module.exports={LoginController,RegisterController,logutController}

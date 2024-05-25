@@ -1,15 +1,21 @@
-import React, { useRef } from 'react'
+import React, { useRef ,useEffect} from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import {useDispatch,useSelector} from 'react-redux'
+import {RegisterController} from '../stores/AuthSlice'
+import axios from 'axios';
+
 const Register = () => {
 
      const Email=useRef();
      const Name=useRef();
      const pass=useRef();
      const ConfPass=useRef();
-
+    const Dispatch=useDispatch();
      let Navigate=useNavigate()
+     let {isError,isloading,message}= useSelector(state=>state.users)
+
+
      async function SubmitHandle(e)
      {
          e.preventDefault();
@@ -29,25 +35,25 @@ const Register = () => {
                 return;
             } 
 
-            try {
-                let res=await axios.post("http://localhost:8080/api/register",data,{ withCredentials: true });
+           
+               
+                Dispatch(RegisterController(data))
             
-                  toast.success(res.data.message)
+               
 
                   Email.current.value=""
                   Name.current.value=""
                   pass.current.value=""
                   ConfPass.current.value=""
-                  
-                 Navigate("/login")
-            } catch (err) {
-                console.log(err);
-                toast.error(err.response.data.message)
-                
-            }
-        
+                   
    
      }
+
+     useEffect(()=>{
+        if(isError)
+         toast.error(message)
+      },[isError])
+    
 
   return (
     <form  className='container flex flex-col border-2 md:w-2/3 bg-slate-800 mt-6 m-auto p-6 rounded-xl gap-3 h-auto font-bold text-normal lg:w-2/5' >

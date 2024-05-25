@@ -18,7 +18,7 @@ function App() {
 
   return (
    <>
-   <store.Provider value={{userDataHandle}}>
+  
     <BrowserRouter>
   <Routes>
     <Route path="/" element={<Layout />}>
@@ -28,7 +28,7 @@ function App() {
     </Route>
   </Routes>
 </BrowserRouter>
-</store.Provider>
+
    </>
   );
 }

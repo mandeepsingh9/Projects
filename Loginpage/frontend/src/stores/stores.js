@@ -1,8 +1,12 @@
-import { createContext } from "react";
+import {configureStore} from '@reduxjs/toolkit'
+import AuthSlice from './AuthSlice';
 
-const store=createContext({
-    
-    userDataHandle:()=>{}
-})
+const store=configureStore(
+    {
+        reducer:{
+              users:AuthSlice.reducer
+        }
+    }
+);
 
 export default store;
