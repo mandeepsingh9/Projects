@@ -31,13 +31,7 @@ const Login = () => {
             
   }
 
-    useEffect(()=>{
-      if(isError)
-       toast.error(message)
-      if(Currentuser)
-        Navigate('/')
-    },[isError,Currentuser])
-
+  
   return (
     <form  className='container flex flex-col border-2 md:w-2/3 bg-slate-800 mt-6 m-auto p-6 rounded-xl gap-3 h-auto font-bold text-xl lg:w-2/5' >
          <Toaster position="top-center" reverseOrder={false} />

@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 
 export const loginController=createAsyncThunk("users/loginController",async(obj,{ rejectWithValue })=>{
 
    try {
      const res=await axios.post("http://localhost:8080/api/login",obj,{ withCredentials: true }) 
-
+     toast.success(res.data.message)
      return res.data;
    } catch (error) {
+         toast.error(error.response.data.message);
         return  rejectWithValue(error.response.data);
    }
 })
@@ -22,7 +24,7 @@ export const RegisterController=createAsyncThunk("users/REgisterController",asyn
   
         return res.data;
     } catch (error) {
-        
+        console.log(error);
         return rejectWithValue(error.response.data);
     }
 })
@@ -49,7 +51,7 @@ const AuthSlice=createSlice(
             Currentuser:null,
             isloading:false,
             isError:false,
-            message:""
+            
         },
         reducers:{},
         extraReducers:(builder)=>{
@@ -91,13 +93,7 @@ const AuthSlice=createSlice(
               })  
 
 
-              builder.addCase(LogoutController.fulfilled,(state,action)=>{
-                 
-                state.isloading=false
-                   state.isError=false
-                   state.Currentuser=null;
-                   state.message=(action.payload.message);
-             })  
+             
         }
     }
 );
