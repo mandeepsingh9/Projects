@@ -8,13 +8,10 @@ import Register from './Components/Register';
 import Home from './Components/Home';
 import store from './stores/stores';
 import Privarcy from './Components/Privarcy';
+import Profile from './Components/Profile';
 
 function App() {
 
-    function userDataHandle(obj)
-    {
-       console.log(obj);
-    }
 
 
   return (
@@ -28,8 +25,10 @@ function App() {
       <Route index element={<Home/>}/>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      
+      
       <Route element={<Privarcy/>}>
-          <Route path="/profile"  />
+         <Route path="/profile" element={<Profile/>}  />
       </Route>
     </Route>
   </Routes>

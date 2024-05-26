@@ -27,8 +27,8 @@ const Login = () => {
      }
     
   
-           const abc=  await Dispatch(loginController(data))
-           console.log(abc)
+           const abc= await Dispatch(loginController(data))
+          
              if(abc.payload.status==="sucess")
               {
                   Navigate("/")

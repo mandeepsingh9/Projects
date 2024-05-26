@@ -1,16 +1,22 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Outlet, useNavigate } from 'react-router-dom'
-
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const Privarcy = () => {
-    const Navigate=useNavigate()
-    const {Currentuser}=useSelector(state=>state.users)
+  const navigate = useNavigate();
+  const { Currentuser } = useSelector(state => state.users);
+
+  useEffect(() => {
+    if (!Currentuser) {
+      navigate('/login');
+    }
+  }, [Currentuser, navigate]);
+
   return (
     <>
-     { Currentuser ?<Outlet/>: Navigate('/login') }
+      {Currentuser && <Outlet /> }
     </>
-  )
+  );
 }
 
-export default Privarcy
+export default Privarcy;

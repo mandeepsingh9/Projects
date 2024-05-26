@@ -6,7 +6,9 @@ export const loginController=createAsyncThunk("users/loginController",async(obj,
 
    try {
      const res=await axios.post("http://localhost:8080/api/login",obj,{ withCredentials: true }) 
+    
      toast.success(res.data.message)
+       
      return res.data;
    } catch (error) {
          toast.error(error.response.data.message);
